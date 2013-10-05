@@ -2,26 +2,30 @@
 
 # Basic Setup
 sudo apt-get -y update
-sudo apt-get -y install build-essential vim git openjdk-7-jre openjdk-7-jdk curl wget python-pip sqlite3 zip
+sudo apt-get -y install curl
 
-# Setup Java Play
-# mkdir play
-# cd play
-# wget http://downloads.typesafe.com/play/2.1.4/play-2.1.4.zip
-# unzip play-2.1.4.zip
-# echo "PATH:$PATH:/$HOME/play/play-2.1.4/" >> ~/.bashrc
+# Postgres setup
+sudo apt-get -y install postgresql postgresql-client-common postgresql-client-9.1 pgadmin3
+sudo /etc/init.d/postgresql start
+echo "CREATE USER weedout WITH PASSWORD 'insecure';
+      CREATE DATABASE weedout_development;
+      GRANT ALL PRIVILEGES ON DATABASE weedout_development TO weedout;" | sudo -u postgres psql -f-
 
-# Setup Django
-# sudo pip install Django
+# RVM
+\curl -L https://get.rvm.io | 
+  bash -s stable --ruby --autolibs=enable --auto-dotfiles
+source /usr/local/rvm/scripts/rvm
+rvm requirements
 
-# Setup MySQL
-debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password password rootpass'
-debconf-set-selections <<< 'mysql-server-5.5 mysql-server/root_password_again password rootpass'
-sudo apt-get -y install mysql-server
+# Ruby
+rvm install ruby
+rvm use ruby --default
 
-# Setup Postgres
-# sudo apt-get -y install postgresql postgresql-client pgadmin3
+# Ruby gems
+rvm rubygems current
 
+# Rails
+gem install rails --version 4.0.0 --no-ri --no-rdoc
 
-# Setup Ruby on Rails
-sudo apt-get install rails
+# Link the rails app to be in the home directory
+ln -fs /vagrant_weedout ~/weedout
