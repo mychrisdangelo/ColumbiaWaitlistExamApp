@@ -1,15 +1,19 @@
 #!/bin/bash
 
+###########################################################################
+# NOTE THAT ALL COMMANDS IN THIS FILE ARE RUN AS ROOT THUS IS UNNECESSARY #
+###########################################################################
+
 # Basic Setup
-sudo apt-get -y update
-sudo apt-get -y install curl git zsh
+apt-get -y update
+apt-get -y install curl git zsh
 
 # Postgres setup
-sudo apt-get -y install postgresql postgresql-client-common postgresql-client-9.1 pgadmin3
-sudo /etc/init.d/postgresql start
+apt-get -y install postgresql postgresql-client-common postgresql-client-9.1 pgadmin3
+/etc/init.d/postgresql start
 echo "CREATE USER weedout WITH PASSWORD 'insecure';
       CREATE DATABASE weedout_development;
-      GRANT ALL PRIVILEGES ON DATABASE weedout_development TO weedout;" | sudo -u postgres psql -f-
+      GRANT ALL PRIVILEGES ON DATABASE weedout_development TO weedout;" | -u postgres psql -f-
 
 # RVM
 \curl -L https://get.rvm.io | 
@@ -28,9 +32,11 @@ rvm rubygems current
 gem install rails --version 4.0.0 --no-ri --no-rdoc
 
 # Link the rails app to be in the home directory
-ln -fs /vagrant_weedout ~/weedout
+ln -fs /vagrant_weedout /home/weedout
 
 # Set up oh my zsh
-curl -L https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh | sh
-sed -i "s/robbyrussell/frisk/" ~/.zshrc
-sudo chsh -s /usr/bin/zsh vagrant
+git clone git://github.com/robbyrussell/oh-my-zsh.git /home/vagrant/.oh-my-zsh
+cp /home/vagrant/.oh-my-zsh/templates/zshrc.zsh-template /home/vagrant/.zshrc
+echo "export PATH=\$PATH:$PATH" >> /home/vagrant/.zshrc
+sed -i "s/robbyrussell/frisk/" /home/vagrant/.zshrc
+chsh -s /usr/bin/zsh vagrant
