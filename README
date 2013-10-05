@@ -9,10 +9,10 @@ Neal Hu xh2203
 
 How to Get Started:
 
-1. Command Line $ vagrant up (see http://www.vagrantup.com)
-2. Command Line $ vagrant ssh
-3. Command Line $ cd ~/weedout
-4. Command Line $ rails server
-5. Navigate in your web browser to http://localhost:3030/
-6. Enjoy!
+2. Command Line ./vagrant$ vagrant up (see http://www.vagrantup.com)
+3. Command Line ./$ vagrant ssh
+4. Command Line ~$ cd ~/weedout
+5. Command Line ~$ rails server
+6. Navigate in your web browser to http://localhost:3030/
+7. Enjoy!
 
