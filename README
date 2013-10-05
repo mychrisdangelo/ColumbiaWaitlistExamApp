@@ -11,6 +11,8 @@ How to Get Started:
 
 1. Command Line $ vagrant up (see http://www.vagrantup.com)
 2. Command Line $ vagrant ssh
-3. 
-
+3. Command Line $ cd ~/weedout
+4. Command Line $ rails server
+5. Navigate in your web browser to http://localhost:3030/
+6. Enjoy!
 
