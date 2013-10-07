@@ -10,16 +10,18 @@ apt-get -y install curl git zsh
 
 # Postgres setup
 apt-get -y install postgresql postgresql-client-common postgresql-client-9.1 pgadmin3 libpq-dev
-/etc/init.d/postgresql start
+sed -r "s/^local\s+all\s+all\s+peer$/local all all  md5/" /etc/postgresql/9.1/main/pg_hba.conf > /.temppg_conf
+mv /.temppg_conf /etc/postgresql/9.1/main/pg_hba.conf
+su vagrant
+sudo /etc/init.d/postgresql start
 echo "CREATE USER weedout WITH PASSWORD 'insecure';
       CREATE DATABASE weedout_development;
-      GRANT ALL PRIVILEGES ON DATABASE weedout_development TO weedout;" | psql -u postgres -f-
+      GRANT ALL PRIVILEGES ON DATABASE weedout_development TO weedout;" | sudo -u postgres psql -f-
 
 # RVM
 \curl -L https://get.rvm.io | 
   bash -s stable --ruby --autolibs=enable --auto-dotfiles
 source /usr/local/rvm/scripts/rvm
-su vagrant
 rvm requirements
 
 # Ruby

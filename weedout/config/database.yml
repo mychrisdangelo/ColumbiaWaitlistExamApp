@@ -7,7 +7,7 @@ development:
   host: localhost
   adapter: postgresql
   encoding: unicode
-  database: weedout_test
+  database: weedout_development
   pool: 5
   username: weedout
   password: insecure
