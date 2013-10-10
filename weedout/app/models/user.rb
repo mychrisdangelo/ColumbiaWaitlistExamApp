@@ -10,4 +10,8 @@ class User < ActiveRecord::Base
       self.email = "#{self.uni}@columbia.edu"
     end
   end
+
+  def testme
+    logger.info "testme was called"
+  end
 end
