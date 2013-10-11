@@ -1,4 +1,4 @@
-class CoursesController < ApplicationController
+class Professor::CoursesController < ApplicationController
 	before_filter :authenticate_user!
 
 	def index

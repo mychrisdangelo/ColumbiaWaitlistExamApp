@@ -3,11 +3,16 @@ Weedout::Application.routes.draw do
 
   resources :courses
 
+  namespace :professor do
+    resources :courses
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root "courses#index"
+  # this is essentially overridden by the after_sign_in_path_for
+  root "home#index"
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
