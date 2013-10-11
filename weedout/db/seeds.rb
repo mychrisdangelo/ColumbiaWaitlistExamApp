@@ -8,5 +8,5 @@
 
 # to use run 'rake db:seed'
 5.times do |i|
-  Course.create(course_title: "Course Title ##{i}", description: "A really great unique course description")
+  Course.create(course_title: "Course Title ##{i}", description: "A really great unique course description", call_number: i)
 end
