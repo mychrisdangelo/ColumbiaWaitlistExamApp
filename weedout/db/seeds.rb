@@ -5,3 +5,8 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+# to use run 'rake db:seed'
+5.times do |i|
+  Course.create(course_title: "Course Title ##{i}", description: "A really great unique course description")
+end
