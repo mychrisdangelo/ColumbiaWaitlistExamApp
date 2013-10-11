@@ -3,6 +3,10 @@ Weedout::Application.routes.draw do
 
   resources :courses
 
+  # namespaces suggestion comes from
+  # http://guides.rubyonrails.org/routing.html
+  # and
+  # http://everydayrails.com/2012/07/31/rails-admin-panel-from-scratch.html
   namespace :professor do
     resources :courses
   end

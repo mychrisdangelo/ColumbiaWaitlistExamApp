@@ -10,10 +10,6 @@ class ApplicationController < ActionController::Base
       super
     end
   end
-
-  def after_sign_in_path_for(resource)
-    professor_courses_path
-  end
-
+  
 end
 
