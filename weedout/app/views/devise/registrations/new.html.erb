@@ -12,6 +12,12 @@
   <div><%= f.label :password_confirmation %><br />
   <%= f.password_field :password_confirmation %></div>
 
+  <div><%= f.label :full_name %><br />
+  <%= f.text_field :full_name %></div>
+
+  <div><%= f.label :signup_as_professor %><br />
+  <%= f.check_box :signup_as_professor %></div>
+
   <div><%= f.submit "Sign up" %></div>
 <% end %>
 
