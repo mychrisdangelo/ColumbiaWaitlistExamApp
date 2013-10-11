@@ -4,26 +4,31 @@
      but note that the code provided needed to be updated for rails 4 -->
 <%= form_tag courses_path, :method => 'get' do %>
   <p>
+    Search By Call Number
     <%= text_field_tag :search, params[:search] %>
     <%= submit_tag "Search", :name => nil %>
   </p>
 <% end %>
 
-<table>
-  <tr>
-    <th>Course Title</th>
-    <th>Description</th>
-    <th>Call Number</th>
-  </tr>
- 
-  <% @courses.each do |course| %>
+<% if @courses.length == 0 %>
+  <p> No courses with tests found. </p>
+<% else %>
+  <table>
     <tr>
-      <td><%= course.course_title %></td>
-      <td><%= course.description %></td>
-      <td><%= course.call_number %></td>
+      <th>Course Title</th>
+      <th>Description</th>
+      <th>Call Number</th>
     </tr>
-  <% end %>
-</table>
+   
+    <% @courses.each do |course| %>
+      <tr>
+        <td><%= course.course_title %></td>
+        <td><%= course.description %></td>
+        <td><%= course.call_number %></td>
+      </tr>
+    <% end %>
+  </table>
+<% end %>
 
 <% if user_signed_in? %>
         <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
