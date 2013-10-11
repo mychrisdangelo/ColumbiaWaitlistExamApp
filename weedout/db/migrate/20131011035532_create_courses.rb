@@ -10,7 +10,16 @@ class CreateCourses < ActiveRecord::Migration
       t.integer :num_fixed_units
       t.string :room
       t.string :building_1
-      t.references :user, index: true
+
+      # http://guides.rubyonrails.org/association_basics.html
+      # http://stackoverflow.com/questions/9934308/rails-one-model-with-two-associations
+      t.belongs_to :professor, 
+        class_name: "User",
+        -> { where isprofessor: true }, 
+        index: true
+
+      t.has_many :students,
+        class_name: "User"
 
       t.timestamps
     end
