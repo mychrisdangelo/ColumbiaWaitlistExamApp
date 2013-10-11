@@ -3,8 +3,12 @@ class ProfessorValidator < ActiveModel::Validator
   def isRealProfessor(record)
     # Louis insert code here
 
+    # determine if record.uni (example: cd2665 exists as known professor)
+    isProfessor = true
+    # then set full name like this
+    record.full_name = "Jae Lee"
 
-    return true
+    return isProfessor
   end
 
   def validate(record)
