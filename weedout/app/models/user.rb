@@ -1,7 +1,15 @@
 class ProfessorValidator < ActiveModel::Validator
+
+  def isRealProfessor(record)
+    # Louis insert code here
+
+
+    return true
+  end
+
   def validate(record)
-    if record.signup_as_professor == true
-      record.errors[:base] << "Not a real professor."
+    if record.signup_as_professor == true && !isRealProfessor(record)
+      record.errors[:base] << "Not a real professor."      
     end
   end
 end
@@ -13,6 +21,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
   before_validation :set_email
+  after_validation :set_isprofessor
   validates_with ProfessorValidator
 
   def set_email
@@ -21,8 +30,8 @@ class User < ActiveRecord::Base
     end
   end
 
-  def testme
-    logger.info "testme was called"
+  def set_isprofessor
+    self.isprofessor = self.signup_as_professor
   end
 end
 
