@@ -1,4 +1,4 @@
-<h1>Listing courses</h1>
+<h1>(Logged in: <%= @user.uni =%>) Listing courses</h1>
  
 <table>
   <tr>
@@ -13,3 +13,7 @@
     </tr>
   <% end %>
 </table>
+
+<% if user_signed_in? %>
+        <%= link_to 'Sign out', destroy_user_session_path, :method => :delete %>
+<% end %>
