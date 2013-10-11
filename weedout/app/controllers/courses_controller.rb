@@ -5,6 +5,13 @@ class CoursesController < ApplicationController
 		redirect_to new_user_session_path unless current_user && !current_user.isprofessor
 	end
 
+	def edit
+  		@course = Course.find(params[:id])
+  		# http://stackoverflow.com/questions/5799043/rails-association-how-to-add-the-has-many-object-to-the-owner
+  		@course.students.build(params[:current_user])
+  		@course.save
+	end
+
 	def index
 	  @courses = Course.search(params[:search])
 	  @user = current_user

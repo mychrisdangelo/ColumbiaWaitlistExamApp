@@ -18,6 +18,7 @@
       <th>Course Title</th>
       <th>Description</th>
       <th>Call Number</th>
+      <th>Test</th>
     </tr>
    
     <% @courses.each do |course| %>
@@ -25,6 +26,7 @@
         <td><%= course.course_title %></td>
         <td><%= course.description %></td>
         <td><%= course.call_number %></td>
+        <td><%= link_to 'Test NOT WORKING: Add Student to Course', edit_course_path(course) %></td>
       </tr>
     <% end %>
   </table>
