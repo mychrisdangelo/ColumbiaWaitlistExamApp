@@ -3,13 +3,15 @@
 <table>
   <tr>
     <th>Course Title</th>
-    <th>Description</th>
+    <th>Time</th>
+    <th>Day</th>
   </tr>
  
-  <% @courses.each do |course| %>
+  <% @course_list.each do |course| %>
     <tr>
-      <td><%= course.course_title %></td>
-      <td><%= course.description %></td>
+      <td><%= link_to course["CourseSubtitle"], controller: "professor/courses", action: "create", course: course%></td>
+      <td><%= "#{course["StartTime1"]} - #{course["EndTime1"]}" %></td>
+      <td><%= course["MeetsOn1"] %></td>
     </tr>
   <% end %>
 </table>

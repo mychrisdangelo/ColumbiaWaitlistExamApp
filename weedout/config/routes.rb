@@ -1,13 +1,15 @@
 Weedout::Application.routes.draw do
   devise_for :users
 
-  resources :courses  get "courses/select"
+  get "/courses/select", to: 'courses#select'
+
   # namespaces suggestion comes from
   # http://guides.rubyonrails.org/routing.html
   # and
   # http://everydayrails.com/2012/07/31/rails-admin-panel-from-scratch.html
   namespace :professor do
-    resources :courses
+    get "/courses/", to: 'courses#index'
+    get "/courses/new", to: 'courses#create'
   end
 
   # The priority is based upon order of creation: first created -> highest priority.
