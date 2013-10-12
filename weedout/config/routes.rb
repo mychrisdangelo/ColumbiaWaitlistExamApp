@@ -1,8 +1,7 @@
 Weedout::Application.routes.draw do
   devise_for :users
 
-  resources :courses
-
+  resources :courses  get "courses/select"
   # namespaces suggestion comes from
   # http://guides.rubyonrails.org/routing.html
   # and
