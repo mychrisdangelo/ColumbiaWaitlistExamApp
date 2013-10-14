@@ -14,8 +14,8 @@ class ProfessorValidator < ActiveModel::Validator
       if record.uni == row[0] # if the uni in row 1 = the record's name
         record.full_name = row[1] # set the record's name to the namein row 2
         isProfessor = true  # set isProfessor to true
-      end # end for loop
-
+      end # end of if
+    end # end of for
     return isProfessor
   end
 
