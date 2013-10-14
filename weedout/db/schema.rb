@@ -23,12 +23,9 @@ ActiveRecord::Schema.define(version: 20131011035532) do
     t.integer  "num_fixed_units"
     t.string   "room"
     t.string   "building_1"
-    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  add_index "courses", ["user_id"], name: "index_courses_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false

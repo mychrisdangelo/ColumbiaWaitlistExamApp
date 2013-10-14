@@ -1,7 +1,6 @@
-require 'CSV' # Chris, this is for our CSV reader
 
 class ProfessorValidator < ActiveModel::Validator
-
+  require 'csv' # Chris, this is for our CSV reader
   def isRealProfessor(record)
     # # Louis insert code here
 
@@ -10,7 +9,8 @@ class ProfessorValidator < ActiveModel::Validator
     # # then set full name like this
     # record.full_name = "Jae Lee"
 
-    CSV.foreach("../../professor_names.csv") do |row| # for each row in the csv
+    isProfessor = false
+    CSV.foreach("config/professor_names.csv") do |row| # for each row in the csv
       if record.uni == row[0] # if the uni in row 1 = the record's name
         record.full_name = row[1] # set the record's name to the namein row 2
         isProfessor = true  # set isProfessor to true
