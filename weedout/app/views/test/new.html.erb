@@ -1,3 +1,11 @@
 <h1><%= @course.course_title %></h1>
 <p>Fill out the form below to create a 10 question test</p>
-
+<%= form_tag("/test/create", method: "post") do %>
+  <% (1..10).each do |i| %>
+    <%= text_area_tag("questiontext-#{i}") %>
+    <% (1..4).each do |j| %>
+      <%= text_field_tag("questionresponse-#{i}-#{j}") %>
+    <%= radio_button_tag("questionresponse-#{i}", "#{j}") %>
+    <% end %>
+  <% end %>
+<% end %>
