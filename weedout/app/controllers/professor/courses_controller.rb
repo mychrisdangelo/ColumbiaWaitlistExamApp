@@ -33,6 +33,6 @@ class Professor::CoursesController < ApplicationController
       end
     end
     newcourse = Course.create courseHash
-    redirect_to professor_courses_path
+    redirect_to new_test_path(newcourse.id)
   end
 end

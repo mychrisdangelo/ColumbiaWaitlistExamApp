@@ -12,6 +12,8 @@ Weedout::Application.routes.draw do
     get "/courses/new", to: 'courses#create'
   end
 
+  get "/test/new/:course_id", to: 'test#new', as: 'new_test'
+
   resources :courses
 
   # The priority is based upon order of creation: first created -> highest priority.
