@@ -1,2 +1,19 @@
-<h1>Response#index</h1>
-<p><%= @course %></p>
+<h1><%= @course.course_title %></h1>
+<!--<p><%= @questions[3].text %></p>-->
+<%= form_tag("/response/create/", method: "post") do %>
+  <!--<%= hidden_field_tag(:questions, @questions) %>
+  <%= hidden_field_tag(:question_choices, @question_choices) %>-->
+  <%= hidden_field_tag(:i, 10) %>
+  <% (0..9).each do |i| %>
+    <strong><%= @questions[i].text %></strong>
+    <br>
+    <% (0..3).each do |j| %>
+      <%= @question_choices[i][j].text %>
+      <%= hidden_field_tag("question-#{i}", @questions[i].id) %>
+      <%= radio_button_tag("questionresponse-#{i}", @question_choices[i][j].id) %>
+      </br>
+    <% end %>
+  <% end %>
+  <%= submit_tag("Save") %>
+  <%= submit_tag("Cancel") %>
+<% end %>
