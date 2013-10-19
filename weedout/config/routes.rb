@@ -1,4 +1,5 @@
 Weedout::Application.routes.draw do
+  get "response/index"
   devise_for :users
 
   get "/courses/select", to: 'courses#select'
@@ -11,7 +12,7 @@ Weedout::Application.routes.draw do
     get "/courses/", to: 'courses#index'
     get "/courses/new", to: 'courses#create'
   end
-
+  get "/reponse/", to: 'response#show'
   get "/test/new/:course_id", to: 'test#new', as: 'new_test'
   post "/test/create/:course_id", to: 'test#create', as: 'create_test'
 

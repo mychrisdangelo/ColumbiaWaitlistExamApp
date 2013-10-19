@@ -22,7 +22,7 @@
    
     <% @courses.each do |course| %>
       <tr>
-        <td><%= course.course_title %></td>
+        <td><%= link_to course.course_title, controller: "response", action: "show", course: course%></td>
         <td><%= course.description %></td>
         <td><%= course.call_number %></td>
       </tr>
