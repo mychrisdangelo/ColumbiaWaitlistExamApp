@@ -29,14 +29,14 @@ ActiveRecord::Schema.define(version: 20131019002032) do
 
   create_table "question_choices", force: true do |t|
     t.string   "text"
-    t.integer  "question_id"
+    t.integer  "question_id", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "questions", force: true do |t|
     t.string   "text"
-    t.integer  "course_id"
+    t.integer  "course_id",         null: false
     t.integer  "correct_choice_id"
     t.datetime "created_at"
     t.datetime "updated_at"
