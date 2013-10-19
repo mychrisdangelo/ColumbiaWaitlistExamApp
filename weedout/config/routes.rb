@@ -13,6 +13,7 @@ Weedout::Application.routes.draw do
   end
 
   get "/test/new/:course_id", to: 'test#new', as: 'new_test'
+  post "/test/create/:course_id", to: 'test#create', as: 'create_test'
 
   resources :courses
 

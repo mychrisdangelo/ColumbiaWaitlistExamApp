@@ -1,11 +1,19 @@
 <h1><%= @course.course_title %></h1>
 <p>Fill out the form below to create a 10 question test</p>
-<%= form_tag("/test/create", method: "post") do %>
+<%= form_tag("/test/create/#{@course.id}", method: "post") do %>
+  <%= hidden_field_tag(:course_id, @course.id) %>
+  <%= hidden_field_tag(:i, 10) %>
   <% (1..10).each do |i| %>
+    <%= label_tag("questiontext-#{i}", "Question ##{i} Text") %>
     <%= text_area_tag("questiontext-#{i}") %>
+    </br>
     <% (1..4).each do |j| %>
+      <%= label_tag("questionresponse-#{i}-#{j}", "Possible response #{j}") %>
       <%= text_field_tag("questionresponse-#{i}-#{j}") %>
-    <%= radio_button_tag("questionresponse-#{i}", "#{j}") %>
+      <%= radio_button_tag("questionresponse-#{i}", "#{j}") %>
+      </br>
     <% end %>
   <% end %>
+  <%= submit_tag("Save") %>
+  <%= submit_tag("Cancel") %>
 <% end %>
