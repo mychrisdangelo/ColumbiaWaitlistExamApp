@@ -1,5 +1,5 @@
 class Course < ActiveRecord::Base
-  	belongs_to :user
+  	belongs_to :professor, class_name: "User"
 
 	def self.search(search)
 		  if search 

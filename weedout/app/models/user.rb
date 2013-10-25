@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+  has_many :courses, foreign_key: "professor_id"
   before_validation :set_email
   after_validation :set_isprofessor
   validates_with ProfessorValidator

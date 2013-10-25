@@ -7,11 +7,9 @@
     <th>Day</th>
   </tr>
  
-  <% @course_list.each do |course| %>
+  <% @courses.each do |course| %>
     <tr>
-      <td><%= link_to course["CourseSubtitle"], controller: "professor/courses", action: "create", course: course%></td>
-      <td><%= "#{course["StartTime1"]} - #{course["EndTime1"]}" %></td>
-      <td><%= course["MeetsOn1"] %></td>
+      <td><%= link_to course.course_title, controller: "/test", action: "new", course_id: course.id %></td>
     </tr>
   <% end %>
 </table>

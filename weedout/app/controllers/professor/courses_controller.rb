@@ -20,20 +20,22 @@ class Professor::CoursesController < ApplicationController
       course_info["data"][0]["Sections"] = nil
       section.merge! course_info["data"][0]
     end
-	  @course_list = json_object["data"]
-	  @user = current_user
-	end
-
-  def create
-    course = params[:course]
-    courseHash = Hash.new
-    course.keys.each do |key|
-      newkey = key.underscore
-      if Course.column_names.include?(newkey)
-        courseHash[newkey] = course[key]
+	  course_list = json_object["data"]
+    course_list.each do |course|
+      courseHash = Hash.new
+      if Course.where(call_number: course["CallNumber"]).count == 0 then
+        course.keys.each do |key|
+          newkey = key.underscore
+          if Course.column_names.include?(newkey)
+            courseHash[newkey] = course[key]
+          end
+        end
+        newcourse = Course.create courseHash
+        newcourse.professor = current_user
+        newcourse.save
       end
     end
-    newcourse = Course.create courseHash
-    redirect_to new_test_path(newcourse.id)
-  end
+    @courses = current_user.courses
+	  @user = current_user
+	end
 end
