@@ -9,8 +9,9 @@ class Professor::CoursesController < ApplicationController
 	end
 
 	def index
-	  @prof_name = "LEE"
-	  m_prof_name = @prof_name.gsub ' ', '%20' 
+	  @prof_name = "#{current_user.lastname}, #{current_user.firstname}"
+	  m_prof_name = @prof_name.gsub ' ', '%20'
+    m_prof_name = m_prof_name.gsub ',', '%2C'
 	  url ='http://data.adicu.com/courses/v2/sections?api_token=b9ac8a50324311e390c312313d000d18&pretty=true&professor='+m_prof_name
 	  json_object = JSON.parse(open(url).read())
     json_object["data"].each do |section|
