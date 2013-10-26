@@ -1,2 +1,21 @@
 <h1><%= Course.find(@course).course_title %></h1>
 
+<h3>Grade List</h3>
+<table>
+  <tr>
+    <th>Uni</th>
+    <% (1..10).each do |i| %>
+    	<th><%= "Q#{i}" %></th>
+    <% end %>
+    <th>Total</th>
+  </tr>
+ 
+  <% @grade_list.each do |k, v| %>
+    <tr>
+      <td><%= k %></td>
+      <% (0..10).each do |n| %>
+      	<td><%= v[n] %></td>
+      <% end %>
+    </tr>
+  <% end %>
+</table>
