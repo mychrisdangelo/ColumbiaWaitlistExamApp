@@ -9,14 +9,17 @@ class TestController < ApplicationController
   end
 
   def create
+    puts "test!!"
     
     (1..params[:i].to_i).each do |i|
-      a = Question.create text: params["questiontext-#{i}"], :course_id => params[:course_id]
-      
+      a = Question.create text: params["questiontext-#{i}"], :course_id => params[:course_id]     
       (1..4).each do |j|
         b = QuestionChoice.create text: params["questionresponse-#{i}-#{j}"], question: a
-        if params["questionresponse-#{i}"] == j then
-          a.correct_choice = b
+        puts "j is #{j}"
+        puts "the questionresponse is #{params["questionresponse-#{i}"]}"
+
+        if params["questionresponse-#{i}"] == "#{j}" then
+          a.correct_choice_id = b.id
           a.save
         end
       end
