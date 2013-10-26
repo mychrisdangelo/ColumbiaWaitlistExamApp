@@ -8,7 +8,7 @@
  
   <% @courses.with_questions.each do |course| %>
     <tr>
-      <td><%= course.course_title %></td>
+      <td><%= link_to course.course_title, controller:"/test", action:"show", course: course %></td>
     </tr>
   <% end %>
 </table>

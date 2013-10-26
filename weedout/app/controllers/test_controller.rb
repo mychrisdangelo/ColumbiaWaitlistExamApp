@@ -24,4 +24,8 @@ class TestController < ApplicationController
 
     redirect_to professor_courses_path, notice: "Your test has been created"
   end
+
+  def show
+    @course = params[:course]
+  end
 end
