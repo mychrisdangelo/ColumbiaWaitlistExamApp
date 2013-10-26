@@ -9,15 +9,10 @@ class TestController < ApplicationController
   end
 
   def create
-    puts "test!!"
-    
     (1..params[:i].to_i).each do |i|
       a = Question.create text: params["questiontext-#{i}"], :course_id => params[:course_id]     
       (1..4).each do |j|
         b = QuestionChoice.create text: params["questionresponse-#{i}-#{j}"], question: a
-        puts "j is #{j}"
-        puts "the questionresponse is #{params["questionresponse-#{i}"]}"
-
         if params["questionresponse-#{i}"] == "#{j}" then
           a.correct_choice_id = b.id
           a.save
@@ -26,6 +21,23 @@ class TestController < ApplicationController
     end
 
     redirect_to professor_courses_path, notice: "Your test has been created"
+  end
+
+  def getStudentsResponsesForThisCourse uni, course_id
+    response_list = Array.new(10)
+    count = 0
+    responses_for_the_uni = Response.where(uni: uni)
+    question_ids_for_the_course = Question.where(course_id: course_id).select(:id)
+    responses_for_the_uni.each do |one_response|
+      #check if the response.question_id is in questions_ids_for_the_course
+      question_ids_for_the_course.each do |i|
+        if one_response.question_id == i.id then
+          response_list[count] = one_response
+          count = count + 1
+        end
+      end
+    end
+    return response_list
   end
 
   def show
@@ -41,7 +53,8 @@ class TestController < ApplicationController
       @grade_list[u] = Array.new(11)
       @grade_list[u][10] = 0
       i = 0
-      responses_for_this_uni = Response.where(uni: u)
+      responses_for_this_uni = getStudentsResponsesForThisCourse u, @course
+      # responses_for_this_uni = Response.where(uni: u)
       responses_for_this_uni.each do |r_uni|
         if r_uni.question_choice_id == r_uni.question.correct_choice_id then
           @grade_list[u][i] = 1
@@ -52,8 +65,5 @@ class TestController < ApplicationController
         i = i + 1
       end
     end
-
-
-
   end
 end
