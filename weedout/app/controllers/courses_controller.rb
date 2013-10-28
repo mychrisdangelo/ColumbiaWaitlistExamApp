@@ -16,7 +16,7 @@ class CoursesController < ApplicationController
 	end
 
 	def index
-	  @courses = Course.search(params[:search])
+	  @courses = Course.search(params[:search]).with_questions
 	  @user = current_user
 	end
 

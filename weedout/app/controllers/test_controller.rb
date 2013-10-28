@@ -10,8 +10,10 @@ class TestController < ApplicationController
 
   def create
     (1..params[:i].to_i).each do |i|
+      if (params["questiontext-#{i}"].empty?) then next end
       a = Question.create text: params["questiontext-#{i}"], :course_id => params[:course_id]     
       (1..4).each do |j|
+        if (params["questionresponse-#{i}-#{j}"].empty?) then next end
         b = QuestionChoice.create text: params["questionresponse-#{i}-#{j}"], question: a
         if params["questionresponse-#{i}"] == "#{j}" then
           a.correct_choice_id = b.id
@@ -24,7 +26,8 @@ class TestController < ApplicationController
   end
 
   def getStudentsResponsesForThisCourse uni, course_id
-    response_list = Array.new(10)
+    num_questions = Course.find(course_id).questions.count
+    response_list = Array.new(num_questions)
     count = 0
     responses_for_the_uni = Response.where(uni: uni)
     question_ids_for_the_course = Question.where(course_id: course_id).select(:id)
@@ -42,23 +45,24 @@ class TestController < ApplicationController
 
   def show
     @grade_list = Hash.new
-    @course = params[:course]
+    @course = Course.find(params[:course])
     # first check all responses for this course
     questions = Course.find(@course).questions
+    num_questions = questions.count
     @first_question = questions.first
 
     @responses_fq = @first_question.question_responses
     @responses_fq.each do |r|
       u = r.uni
-      @grade_list[u] = Array.new(11)
-      @grade_list[u][10] = 0
+      @grade_list[u] = Array.new(num_questions+1)
+      @grade_list[u][num_questions] = 0
       i = 0
       responses_for_this_uni = getStudentsResponsesForThisCourse u, @course
       # responses_for_this_uni = Response.where(uni: u)
       responses_for_this_uni.each do |r_uni|
         if r_uni.question_choice_id == r_uni.question.correct_choice_id then
           @grade_list[u][i] = 1
-          @grade_list[u][10] = @grade_list[u][10] + 1
+          @grade_list[u][num_questions] = @grade_list[u][num_questions] + 1
         else
           @grade_list[u][i] = 0
         end
