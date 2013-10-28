@@ -18,6 +18,7 @@
       <th>Course Title</th>
       <th>Description</th>
       <th>Call Number</th>
+      <th>Taken Test</th>
     </tr>
    
     <% @courses.each do |course| %>
@@ -25,6 +26,7 @@
         <td><%= link_to course.course_title, controller: "response", action: "show", course: course%></td>
         <td><%= course.description %></td>
         <td><%= course.call_number %></td>
+        <td><%= course.questions.first.question_responses.where(uni: current_user.uni).count > 0 %>
       </tr>
     <% end %>
   </table>

@@ -1,13 +1,10 @@
 <h1><%= @course.course_title %></h1>
-<!--<p><%= @questions[3].text %></p>-->
 <%= form_tag("/response/create/", method: "post") do %>
-  <!--<%= hidden_field_tag(:questions, @questions) %>
-  <%= hidden_field_tag(:question_choices, @question_choices) %>-->
-  <%= hidden_field_tag(:i, 10) %>
-  <% (0..9).each do |i| %>
+  <%= hidden_field_tag(:i, @questions.count) %>
+  <% (0...@questions.count).each do |i| %>
     <strong><%= @questions[i].text %></strong>
     <br>
-    <% (0..3).each do |j| %>
+    <% (0...@question_choices[i].length).each do |j| %>
       <%= @question_choices[i][j].text %>
       <%= hidden_field_tag("question-#{i}", @questions[i].id) %>
       <%= radio_button_tag("questionresponse-#{i}", @question_choices[i][j].id) %>
@@ -15,5 +12,4 @@
     <% end %>
   <% end %>
   <%= submit_tag("Save") %>
-  <%= submit_tag("Cancel") %>
 <% end %>

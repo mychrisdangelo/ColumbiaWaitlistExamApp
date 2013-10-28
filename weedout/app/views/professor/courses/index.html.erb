@@ -1,17 +1,27 @@
 <h1>(Professor(<%= @user.isprofessor =%>) in: <%= @user.uni =%>) Listing courses</h1>
- 
+
+<h3>Courses with Tests</h3>
 <table>
   <tr>
     <th>Course Title</th>
-    <th>Time</th>
-    <th>Day</th>
   </tr>
  
-  <% @course_list.each do |course| %>
+  <% @courses.with_questions.each do |course| %>
     <tr>
-      <td><%= link_to course["CourseSubtitle"], controller: "professor/courses", action: "create", course: course%></td>
-      <td><%= "#{course["StartTime1"]} - #{course["EndTime1"]}" %></td>
-      <td><%= course["MeetsOn1"] %></td>
+      <td><%= link_to course.course_title, controller:"/test", action:"show", course: course %></td>
+    </tr>
+  <% end %>
+</table>
+
+<h3>Courses without Tests</h3>
+<table>
+  <tr>
+    <th>Course Title</th>
+  </tr>
+ 
+  <% @courses.without_questions.each do |course| %>
+    <tr>
+      <td><%= link_to course.course_title, controller: "/test", action: "new", course_id: course.id %></td>
     </tr>
   <% end %>
 </table>

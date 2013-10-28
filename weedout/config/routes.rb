@@ -15,6 +15,7 @@ Weedout::Application.routes.draw do
   get "/reponse/", to: 'response#show'
   post "/response/create/", to: 'response#create'
   get "/test/new/:course_id", to: 'test#new', as: 'new_test'
+  get "/test/show/:course", to: 'test#show', as: 'show_test'
   post "/test/create/:course_id", to: 'test#create', as: 'create_test'
 
   resources :courses

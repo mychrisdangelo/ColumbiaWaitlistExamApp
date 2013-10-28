@@ -11,7 +11,8 @@ class ProfessorValidator < ActiveModel::Validator
     isProfessor = false
     CSV.foreach("config/professor_names.csv") do |row| # for each row in the csv
       if record.uni == row[0] # if the uni in row 1 = the record's name
-        record.full_name = row[1] # set the record's name to the namein row 2
+        record.lastname = row[1]
+        record.firstname = row[2]
         isProfessor = true  # set isProfessor to true
       end # end of if
     end # end of for
@@ -31,6 +32,7 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
+  has_many :courses, foreign_key: "professor_id"
   before_validation :set_email
   after_validation :set_isprofessor
   validates_with ProfessorValidator
