@@ -37,6 +37,12 @@ group :doc do
   gem 'sdoc', require: false
 end
 
+# testing!
+group :development, :test do
+  gem 'rspec-rails', '~> 3.0.0.beta'
+  gem 'simplecov'
+end
+
 # Javascript runtime
 gem 'therubyracer'
 
