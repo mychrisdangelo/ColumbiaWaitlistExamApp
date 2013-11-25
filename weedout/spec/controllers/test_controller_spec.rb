@@ -84,6 +84,20 @@ describe TestController do
       expect(QuestionChoice.all.count).to eq(3)
     end
   end
+  
+  context "when the professor doesn't select a correct response" do
+    it "should not create a question" do
+      question_text = "Here's some question text"
+      params[:course_id] = course.id
+      params["questiontext-1"] = question_text
+      params["questionresponse-1-1"] = "Choice 1"
+      params["questionresponse-1-2"] = "Choice 2"
+      params["questionresponse-1-3"] = "Choice 3"
+      post :create, params
+      expect(Question.all.count).to be(0)
+      expect(QuestionChoice.all.count).to be(0)
+    end
+  end
 
   context "when the professor only enters information for the last question" do
     it "should create that question properly" do
